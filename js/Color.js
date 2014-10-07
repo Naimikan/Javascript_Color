@@ -47,4 +47,13 @@ var Color = function (/* red, green, blue | rgbArray | hexString */) {
 	Color.prototype.toRGB = function () {
 		return "rgb(" + RGB.join(",") + ")";
 	};
+
+	Color.prototype.applyBrightness = function (brightnessToApply) {
+		// brightnessToApply --> 0 to 5
+		var brightnessMatrix = [brightnessToApply * 51, brightnessToApply * 51, brightnessToApply * 51];
+
+		RGB = [RGB[0] + brightnessMatrix[0], RGB[1] + brightnessMatrix[1], RGB[2] + brightnessMatrix[2]].map(function (x) {
+			return Math.round(x/2.0);
+		});
+	};
 };
