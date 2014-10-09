@@ -1,7 +1,17 @@
-(function (window, undefined) {
-	// typeof rgbArray --> Array
-	// typeof hexString --> String
-	function Color (/* red, green, blue | rgbArray | hexString */) {
+var JavascriptColor = {
+	Color: function Color (/* red, green, blue | rgbArray | hexString | colorJson */) {
+		// Static function (via http://stackoverflow.com/a/5624139)
+		Color.hexadecimalToRGB = function (hexadecimalColor) {
+			// Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
+			var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+			hexadecimalColor = hexadecimalColor.replace(shorthandRegex, function (m, r, g, b) {
+		        return r + r + g + g + b + b;
+		    });
+
+		    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hexadecimalColor);
+		    return result ? [parseInt(result[1], 16), parseInt(result[2], 16), parseInt(result[3], 16)] : null;
+		};
+
 		var RGB = [];
 
 		// Random Color
@@ -18,13 +28,18 @@
 			var argument = arguments[0];
 
 			// rgbArray
-			if (typeof argument == 'Array') {
+			if (Object.prototype.toString.call(argument) == '[object Array]') {
 				RGB = argument;
 			}
 
 			// hexString
-			if (typeof argument == 'String') {
-				RGB = this.hexadecimalToRGB(argument);
+			if (typeof argument == 'string') {
+				RGB = Color.hexadecimalToRGB(argument);
+			}
+
+			// colorJson
+			if (Object.prototype.toString.call(argument) == '[object Object]') {
+				
 			}
 		} else {
 			throw 'Invalid constructor';
@@ -45,6 +60,10 @@
 
 		Color.prototype.toRGB = function () {
 			return "rgb(" + RGB.join(",") + ")";
+		};
+
+		Color.prototype.toHexadecimal = function () {
+			return "#" + ((1 << 24) + (RGB[0] << 16) + (RGB[1] << 8) + RGB[2]).toString(16).slice(1);
 		};
 
 		Color.prototype.applyBrightness = function (brightnessToApply) {
@@ -80,18 +99,5 @@
 				throw 'Brightness required';
 			}
 		};
-
-		// Static function (via http://stackoverflow.com/a/5624139)
-		Color.hexadecimalToRGB = function (hexadecimalColor) {
-			// Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
-			var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
-			hexadecimalColor = hexadecimalColor.replace(shorthandRegex, function (m, r, g, b) {
-		        return r + r + g + g + b + b;
-		    });
-
-		    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hexadecimalColor);
-		    return result ? [parseInt(result[1], 16), parseInt(result[2], 16), parseInt(result[3], 16)] : null;
-		};
-
-	};
-})(window);
+	}
+};
