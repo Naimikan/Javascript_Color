@@ -55,7 +55,7 @@
 				if (typeof brightnessToApply == 'Number') {
 					validValue = true;
 				} else if (typeof brightnessToApply == 'String') {
-					if (!isNaN(parseInt(brightnessToApply)) {
+					if (!isNaN(parseInt(brightnessToApply))) {
 						validValue = true;
 					} else {
 						throw 'Invalid brightness value';
