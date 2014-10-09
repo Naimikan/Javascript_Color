@@ -37,9 +37,14 @@ var JavascriptColor = {
 				RGB = Color.hexadecimalToRGB(argument);
 			}
 
-			// colorJson
+			// colorJson ({ R: , G: , B: })
 			if (Object.prototype.toString.call(argument) == '[object Object]') {
-				
+				var tempRGB = [];
+				for (var property in argument) {
+					tempRGB.push(argument[property]);
+				}
+
+				RGB = [tempRGB[0], tempRGB[1], tempRGB[2]];
 			}
 		} else {
 			throw 'Invalid constructor';
