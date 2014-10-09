@@ -16,7 +16,9 @@ var Color = function (/* red, green, blue | rgbArray | hexString | colorJson */)
 
 	// Random Color
 	if (arguments.length == 0) {
-		RGB = [Math.random() * 256, Math.random() * 256, Math.random() * 256];
+		RGB = [Math.random() * 256, Math.random() * 256, Math.random() * 256].map(function (x) {
+			return Math.round(x/2.0);
+		});
 	} else if (arguments.length == 3) {
 		// Red, Green, Blue
 		var red = arguments[0];
