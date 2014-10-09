@@ -96,9 +96,7 @@ var Color = function (/* red, green, blue | rgbArray | hexString | colorJson */)
 				if (brightnessToApply >= 0 && brightnessToApply <= 5) {
 					brightnessMatrix = [brightnessToApply * 51, brightnessToApply * 51, brightnessToApply * 51];
 
-					RGB = [RGB[0] + brightnessMatrix[0], RGB[1] + brightnessMatrix[1], RGB[2] + brightnessMatrix[2]].map(function (x) {
-						return Math.round(x/2.0);
-					});
+					RGB = [RGB[0] + brightnessMatrix[0], RGB[1] + brightnessMatrix[1], RGB[2] + brightnessMatrix[2]];
 				} else {
 					throw 'Invalid brightness value (0 to 5)';
 				}
