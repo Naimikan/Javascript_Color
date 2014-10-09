@@ -33,7 +33,7 @@ var Color = function (/* red, green, blue | rgbArray | hexString | colorJson */)
 		}
 
 		// hexString
-		if (typeof argument == 'string') {
+		if (Object.prototype.toString.call(argument) == '[object String]') {
 			RGB = Color.hexadecimalToRGB(argument);
 		}
 
