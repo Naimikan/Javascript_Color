@@ -1,7 +1,7 @@
 (function (window, undefined) {
 	// typeof rgbArray --> Array
 	// typeof hexString --> String
-	var Color = function (/* red, green, blue | rgbArray | hexString */) {
+	function Color (/* red, green, blue | rgbArray | hexString */) {
 		var RGB = [];
 
 		// Random Color
