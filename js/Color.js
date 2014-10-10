@@ -140,8 +140,14 @@
 				if (isInteger(brightnessToApply)) {
 					validValue = true;
 				} else if (Object.prototype.toString.call(brightnessToApply) == '[object String]') {
-					if (isInteger(parseInt(brightnessToApply))) {
-						validValue = true;
+					var tempTransform = brightnessToApply << 0;
+					if (tempTransform == brightnessToApply) {
+						brightnessToApply = tempTransform;
+						if (isInteger(brightnessToApply)) {
+							validValue = true;
+						} else {
+							throw 'Invalid brightness value';
+						}
 					} else {
 						throw 'Invalid brightness value';
 					}
@@ -187,9 +193,14 @@
 				// Percentage value
 				if (opacity.indexOf('%') !== -1) {
 					opacity = opacity.replace("%", "");
-					opacity = parseInt(opacity);
-					if (isInteger(opacity) && (opacity >= 0 && opacity <= 100)) {
-						checkedOpacity = opacity/100;
+					var tempTransform = opacity << 0;
+					if (tempTransform == opacity) {
+						opacity = tempTransform;
+						if (isInteger(opacity) && (opacity >= 0 && opacity <= 100)) {
+							checkedOpacity = opacity/100;
+						} else {
+							throw 'Invalid opacity value';
+						}
 					} else {
 						throw 'Invalid opacity value';
 					}
