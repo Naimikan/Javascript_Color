@@ -1,3 +1,7 @@
+function isInteger (param) {
+	return (typeof param == 'number' && isFinite(param) && param%1 === 0);
+}
+
 var Color = function (/* red, green, blue | rgbArray | hexString | colorJson */) {
 	// Static method (via http://stackoverflow.com/a/5624139)
 	Color.hexadecimalToRGB = function (hexadecimalColor) {
@@ -25,7 +29,11 @@ var Color = function (/* red, green, blue | rgbArray | hexString | colorJson */)
 		var green = arguments[1];
 		var blue = arguments[2];
 
-		RGB = [red, green, blue];
+		if (isInteger(red) && isInteger(green) && isInteger(blue)) {
+			RGB = [red, green, blue];
+		} else {
+			throw 'Invalid input type';
+		}
 	} else if (arguments.length == 1) {
 		var argument = arguments[0];
 
@@ -79,10 +87,10 @@ var Color = function (/* red, green, blue | rgbArray | hexString | colorJson */)
 			var brightnessMatrix = [];
 			var validValue = false;
 
-			if (typeof brightnessToApply == 'number') {
+			if (isInteger(brightnessToApply)) {
 				validValue = true;
-			} else if (typeof brightnessToApply == 'string') {
-				if (!isNaN(parseInt(brightnessToApply))) {
+			} else if (Object.prototype.toString.call(brightnessToApply) == '[object String]') {
+				if (isInteger(parseInt(brightnessToApply))) {
 					validValue = true;
 				} else {
 					throw 'Invalid brightness value';
