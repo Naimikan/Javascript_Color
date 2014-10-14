@@ -47,59 +47,27 @@
 		} else if (arguments.length == 1) {
 			var argument = arguments[0];
 
-			// rgbArray
-			if (Object.prototype.toString.call(argument) == '[object Array]') {
-				if (argument.length >= 3) {
-					var red = argument[0];
-					var green = argument[1];
-					var blue = argument[2];
+			var argumentType = Object.prototype.toString.call(argument);
 
-					if (isInteger(red) && isInteger(green) && isInteger(blue)) {
-						RGBA = [red, green, blue];
+			switch (argumentType) {
+				case "[object Array]":
+					// rgbArray
+					arrayConstructor(argument);
+					break;
 
-						var opacity = argument[3];
-						if (opacity !== undefined) {
-							var checkedOpacity = checkOpacityValue(opacity);
-							RGBA.push(checkedOpacity);
-						} else {
-							RGBA.push(1);
-						}
-					} else {
-						throw 'Invalid input type';
-					}
-				} else {
-					throw 'Invalid input format';
-				}
-			}
+				case "[object String]":
+					// hexString
+					stringConstructor(argument);
+					break;
 
-			// hexString
-			if (Object.prototype.toString.call(argument) == '[object String]') {
-				var transformedColor = Color.hexadecimalToRGB(argument);
-				if (transformedColor !== undefined) {
-					RGBA = transformedColor;
-				} else {
-					throw 'Invalid hex color';
-				}
-			}
+				case "[object Object]":
+					// colorJson ({ R: , G: , B:, A: optional })
+					objectConstructor(argument);
+					break;
 
-			// colorJson ({ R: , G: , B:, A: optional })
-			if (Object.prototype.toString.call(argument) == '[object Object]') {
-				if (argument.hasOwnProperty('r') && argument.hasOwnProperty('g') && argument.hasOwnProperty('b')) {
-					if (isInteger(argument.r) && isInteger(argument.g) && isInteger(argument.b)) {
-						RGBA = [argument.r, argument.g, argument.b];
-
-						if (argument.hasOwnProperty('a')) {
-							var checkedOpacity = checkOpacityValue(argument.a);
-							RGBA.push(checkedOpacity);
-						} else {
-							RGBA.push(1);
-						}
-					} else {
-						throw 'Invalid input type';
-					}
-				} else {
-					throw 'Invalid input format';
-				}
+				default:
+					throw 'Invalid constructor';
+					break;
 			}
 		} else {
 			throw 'Invalid constructor';
@@ -132,7 +100,12 @@
 			return "#" + ((1 << 24) + (RGBA[0] << 16) + (RGBA[1] << 8) + RGBA[2]).toString(16).slice(1);
 		};
 
-		Color.prototype.applyBrightness = function (brightnessToApply) {
+		Color.prototype.changeOpacity = function (newOpacity) {
+			var checkedOpacity = checkOpacityValue(newOpacity);
+			RGBA[3] = checkedOpacity;
+		};
+
+		/*Color.prototype.applyBrightness = function (brightnessToApply) {
 			if (brightnessToApply !== undefined) {
 				var brightnessMatrix = [];
 				var validValue = false;
@@ -161,6 +134,10 @@
 						brightnessMatrix = [brightnessToApply * 51, brightnessToApply * 51, brightnessToApply * 51];
 
 						RGBA = [RGBA[0] + brightnessMatrix[0], RGBA[1] + brightnessMatrix[1], RGBA[2] + brightnessMatrix[2], RGBA[3]];
+
+						RGBA = [RGBA[0] + brightnessMatrix[0], RGBA[1] + brightnessMatrix[1], RGBA[2] + brightnessMatrix[2], RGBA[3]].map(function (x) {
+					    	return Math.round(x/2.0);
+						});
 					} else {
 						throw 'Invalid brightness value (0 to 5)';
 					}
@@ -168,7 +145,7 @@
 			} else {
 				throw 'Brightness required';
 			}
-		};
+		};*/
 
 		// Private method's
 		function isInteger (numberToCheck) {
@@ -186,32 +163,92 @@
 		function checkOpacityValue (opacity) {
 			var checkedOpacity = 1;
 
-			// Opacity format 0 to 1
-			if (isValidNumber(opacity) && (opacity >= 0 && opacity <= 1)) {
-				checkedOpacity = opacity;
-			} else if (Object.prototype.toString.call(opacity) == '[object String]') {
-				// Percentage value
-				if (opacity.indexOf('%') !== -1) {
-					opacity = opacity.replace("%", "");
-					var tempTransform = opacity << 0;
-					if (tempTransform == opacity) {
-						opacity = tempTransform;
-						if (isInteger(opacity) && (opacity >= 0 && opacity <= 100)) {
-							checkedOpacity = opacity/100;
+			if (opacity !== undefined) {
+				// Opacity format 0 to 1
+				if (isValidNumber(opacity) && (opacity >= 0 && opacity <= 1)) {
+					checkedOpacity = opacity;
+				} else if (Object.prototype.toString.call(opacity) == '[object String]') {
+					// Percentage value
+					if (opacity.indexOf('%') !== -1) {
+						opacity = opacity.replace("%", "");
+						if (opacity.length > 0) {
+							var tempTransform = opacity << 0;
+							if (tempTransform == opacity) {
+								opacity = tempTransform;
+								if (isInteger(opacity) && (opacity >= 0 && opacity <= 100)) {
+									checkedOpacity = opacity/100;
+								} else {
+									throw 'Invalid opacity value';
+								}
+							} else {
+								throw 'Invalid opacity value';
+							}
 						} else {
 							throw 'Invalid opacity value';
 						}
 					} else {
-						throw 'Invalid opacity value';
+						throw 'Invalid opacity format';
 					}
 				} else {
-					throw 'Invalid opacity format';
+					throw 'Invalid opacity value';
 				}
 			} else {
-				throw 'Invalid opacity value';
+				throw 'Opacity required';
 			}
 
 			return checkedOpacity;
+		}
+
+		function arrayConstructor (argument) {
+			if (argument.length >= 3) {
+				var red = argument[0];
+				var green = argument[1];
+				var blue = argument[2];
+
+				if (isInteger(red) && isInteger(green) && isInteger(blue)) {
+					RGBA = [red, green, blue];
+
+					var opacity = argument[3];
+					if (opacity !== undefined) {
+						var checkedOpacity = checkOpacityValue(opacity);
+						RGBA[3] = checkedOpacity;
+					} else {
+						RGBA[3] = 1;
+					}
+				} else {
+					throw 'Invalid input type';
+				}
+			} else {
+				throw 'Invalid input format';
+			}
+		}
+
+		function stringConstructor (argument) {
+			var transformedColor = Color.hexadecimalToRGB(argument);
+			if (transformedColor !== undefined) {
+				RGBA = transformedColor;
+			} else {
+				throw 'Invalid hex color';
+			}
+		}
+
+		function objectConstructor (argument) {
+			if (argument.hasOwnProperty('r') && argument.hasOwnProperty('g') && argument.hasOwnProperty('b')) {
+				if (isInteger(argument.r) && isInteger(argument.g) && isInteger(argument.b)) {
+					RGBA = [argument.r, argument.g, argument.b];
+
+					if (argument.hasOwnProperty('a')) {
+						var checkedOpacity = checkOpacityValue(argument.a);
+						RGBA[3] = checkedOpacity;
+					} else {
+						RGBA[3] = 1;
+					}
+				} else {
+					throw 'Invalid input type';
+				}
+			} else {
+				throw 'Invalid input format';
+			}
 		}
 	};
 
