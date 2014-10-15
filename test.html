@@ -1,0 +1,41 @@
+<html>
+	<head></head>
+	<body>
+		<div id="test" style="width: 200px; height: 200px;"></div>
+		<div id="test2" style="width: 200px; height: 200px;"></div>
+	
+		<script type="text/javascript" src="js/Color.js"></script>
+		<script type="text/javascript">
+		
+		var init = new Date().getTime();
+		
+		var g = new Color();
+		console.log(g.toHexadecimal());
+		console.log(g.toArray());
+		console.log(g.toRGBA());
+		console.log(g.toRGB());
+		console.log(g.toJson());
+		
+		var dom1 = document.getElementById("test");
+		dom1.style.backgroundColor = g.toRGBA();
+		
+		g.changeOpacity(0.57);
+		
+		console.log(g.toHexadecimal());
+		console.log(g.toArray());
+		console.log(g.toRGBA());
+		console.log(g.toRGB());
+		console.log(g.toJson());
+		
+		var dom2 = document.getElementById("test2");
+		dom2.style.backgroundColor = g.toRGBA();
+		
+		var end = new Date().getTime();
+		
+		var total = (end - init)/1000;
+		
+		console.log("Elapsed time: " + total + "s");
+		
+		</script>
+	</body>
+</html>
