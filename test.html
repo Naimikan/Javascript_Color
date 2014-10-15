@@ -7,7 +7,7 @@
 		<script type="text/javascript" src="js/Color.js"></script>
 		<script type="text/javascript">
 		
-		var totalLoop = 1;
+		var totalLoop = 100000;
 
 
 		var sum1 = 0;
@@ -15,8 +15,7 @@
 		for (var i = 0; i < totalLoop; i++) {
 			var init = new Date().getTime();
 		
-			var g = new Color().changeOpacity(0.25);
-			console.log(g.toRGBA());
+			var g = new Color().changeOpacity("29%");
 			/*console.log(g.toHexadecimal());
 			console.log(g.toArray());
 			console.log(g.toRGBA());

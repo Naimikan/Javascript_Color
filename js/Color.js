@@ -212,7 +212,8 @@
 					if (opacity.indexOf('%') !== -1) {
 						opacity = opacity.replace("%", "");
 						if (opacity.length > 0) {
-							var tempTransform = opacity << 0;
+							// Parse Int
+							var tempTransform = opacity | 0;
 							if (tempTransform == opacity) {
 								opacity = tempTransform;
 								if (isInteger(opacity) && (opacity >= 0 && opacity <= 100)) {
