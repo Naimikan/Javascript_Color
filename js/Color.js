@@ -60,7 +60,7 @@
 					break;
 
 				case "[object Object]":
-					// colorJson ({ R: , G: , B:, A: optional })
+					// colorJson ({ r: , g: , b:, a: optional })
 					objectConstructor(argument);
 					break;
 

@@ -7,34 +7,280 @@
 		<script type="text/javascript" src="js/Color.js"></script>
 		<script type="text/javascript">
 		
-		var init = new Date().getTime();
+		var totalLoop = 1000000;
+
+
+		var sum1 = 0;
+
+		for (var i = 0; i < totalLoop; i++) {
+			var init = new Date().getTime();
 		
-		var g = new Color();
-		console.log(g.toHexadecimal());
-		console.log(g.toArray());
-		console.log(g.toRGBA());
-		console.log(g.toRGB());
-		console.log(g.toJson());
+			var g = new Color();
+			/*console.log(g.toHexadecimal());
+			console.log(g.toArray());
+			console.log(g.toRGBA());
+			console.log(g.toRGB());
+			console.log(g.toJson());*/
+			
+			var dom1 = document.getElementById("test");
+			dom1.style.backgroundColor = g.toRGBA();
+			
+			g.changeOpacity(0.57);
+			
+			/*console.log(g.toHexadecimal());
+			console.log(g.toArray());
+			console.log(g.toRGBA());
+			console.log(g.toRGB());
+			console.log(g.toJson());*/
+			
+			var dom2 = document.getElementById("test2");
+			dom2.style.backgroundColor = g.toRGBA();
+			
+			var end = new Date().getTime();
+			
+			sum1 += (end - init)/1000;
+		}
+
+		console.log("Random Color");
+		console.log("Total time: " + sum1);
+
+		var sum2 = 0;
+
+		for (var i = 0; i < totalLoop; i++) {
+			var init = new Date().getTime();
 		
-		var dom1 = document.getElementById("test");
-		dom1.style.backgroundColor = g.toRGBA();
+			var g = new Color("#A8B1F3");
+			/*console.log(g.toHexadecimal());
+			console.log(g.toArray());
+			console.log(g.toRGBA());
+			console.log(g.toRGB());
+			console.log(g.toJson());*/
+			
+			var dom1 = document.getElementById("test");
+			dom1.style.backgroundColor = g.toRGBA();
+			
+			g.changeOpacity(0.57);
+			
+			/*console.log(g.toHexadecimal());
+			console.log(g.toArray());
+			console.log(g.toRGBA());
+			console.log(g.toRGB());
+			console.log(g.toJson());*/
+			
+			var dom2 = document.getElementById("test2");
+			dom2.style.backgroundColor = g.toRGBA();
+			
+			var end = new Date().getTime();
+			
+			sum2 += (end - init)/1000;
+		}
+
+		console.log("Color #A8B1F3");
+		console.log("Total time: " + sum2);
+
+		var sum3 = 0;
+
+		for (var i = 0; i < totalLoop; i++) {
+			var init = new Date().getTime();
 		
-		g.changeOpacity(0.57);
+			var g = new Color(12, 57, 189);
+			/*console.log(g.toHexadecimal());
+			console.log(g.toArray());
+			console.log(g.toRGBA());
+			console.log(g.toRGB());
+			console.log(g.toJson());*/
+			
+			var dom1 = document.getElementById("test");
+			dom1.style.backgroundColor = g.toRGBA();
+			
+			g.changeOpacity(0.57);
+			
+			/*console.log(g.toHexadecimal());
+			console.log(g.toArray());
+			console.log(g.toRGBA());
+			console.log(g.toRGB());
+			console.log(g.toJson());*/
+			
+			var dom2 = document.getElementById("test2");
+			dom2.style.backgroundColor = g.toRGBA();
+			
+			var end = new Date().getTime();
+			
+			sum3 += (end - init)/1000;
+		}
+
+		console.log("Color (12, 57, 189)");
+		console.log("Total time: " + sum3);
+
+		var sum4 = 0;
+
+		for (var i = 0; i < totalLoop; i++) {
+			var init = new Date().getTime();
 		
-		console.log(g.toHexadecimal());
-		console.log(g.toArray());
-		console.log(g.toRGBA());
-		console.log(g.toRGB());
-		console.log(g.toJson());
+			var g = new Color(12, 57, 189, 0.24);
+			/*console.log(g.toHexadecimal());
+			console.log(g.toArray());
+			console.log(g.toRGBA());
+			console.log(g.toRGB());
+			console.log(g.toJson());*/
+			
+			var dom1 = document.getElementById("test");
+			dom1.style.backgroundColor = g.toRGBA();
+			
+			g.changeOpacity(0.57);
+			
+			/*console.log(g.toHexadecimal());
+			console.log(g.toArray());
+			console.log(g.toRGBA());
+			console.log(g.toRGB());
+			console.log(g.toJson());*/
+			
+			var dom2 = document.getElementById("test2");
+			dom2.style.backgroundColor = g.toRGBA();
+			
+			var end = new Date().getTime();
+			
+			sum4 += (end - init)/1000;
+		}
+
+		console.log("Color (12, 57, 189, 0.24)");
+		console.log("Total time: " + sum4);
+
+		var sum5 = 0;
+
+		for (var i = 0; i < totalLoop; i++) {
+			var init = new Date().getTime();
 		
-		var dom2 = document.getElementById("test2");
-		dom2.style.backgroundColor = g.toRGBA();
+			var g = new Color([12, 57, 189]);
+			/*console.log(g.toHexadecimal());
+			console.log(g.toArray());
+			console.log(g.toRGBA());
+			console.log(g.toRGB());
+			console.log(g.toJson());*/
+			
+			var dom1 = document.getElementById("test");
+			dom1.style.backgroundColor = g.toRGBA();
+			
+			g.changeOpacity(0.57);
+			
+			/*console.log(g.toHexadecimal());
+			console.log(g.toArray());
+			console.log(g.toRGBA());
+			console.log(g.toRGB());
+			console.log(g.toJson());*/
+			
+			var dom2 = document.getElementById("test2");
+			dom2.style.backgroundColor = g.toRGBA();
+			
+			var end = new Date().getTime();
+			
+			sum5 += (end - init)/1000;
+		}
+
+		console.log("Color [12, 57, 189]");
+		console.log("Total time: " + sum5);
+
+		var sum6 = 0;
+
+		for (var i = 0; i < totalLoop; i++) {
+			var init = new Date().getTime();
 		
-		var end = new Date().getTime();
+			var g = new Color([12, 57, 189, 0.15]);
+			/*console.log(g.toHexadecimal());
+			console.log(g.toArray());
+			console.log(g.toRGBA());
+			console.log(g.toRGB());
+			console.log(g.toJson());*/
+			
+			var dom1 = document.getElementById("test");
+			dom1.style.backgroundColor = g.toRGBA();
+			
+			g.changeOpacity(0.57);
+			
+			/*console.log(g.toHexadecimal());
+			console.log(g.toArray());
+			console.log(g.toRGBA());
+			console.log(g.toRGB());
+			console.log(g.toJson());*/
+			
+			var dom2 = document.getElementById("test2");
+			dom2.style.backgroundColor = g.toRGBA();
+			
+			var end = new Date().getTime();
+			
+			sum6 += (end - init)/1000;
+		}
+
+		console.log("Color [12, 57, 189, 0.15]");
+		console.log("Total time: " + sum6);
+
+		var sum7 = 0;
+
+		for (var i = 0; i < totalLoop; i++) {
+			var init = new Date().getTime();
 		
-		var total = (end - init)/1000;
+			var g = new Color({ r: 12, g: 57, b: 189 });
+			/*console.log(g.toHexadecimal());
+			console.log(g.toArray());
+			console.log(g.toRGBA());
+			console.log(g.toRGB());
+			console.log(g.toJson());*/
+			
+			var dom1 = document.getElementById("test");
+			dom1.style.backgroundColor = g.toRGBA();
+			
+			g.changeOpacity(0.57);
+			
+			/*console.log(g.toHexadecimal());
+			console.log(g.toArray());
+			console.log(g.toRGBA());
+			console.log(g.toRGB());
+			console.log(g.toJson());*/
+			
+			var dom2 = document.getElementById("test2");
+			dom2.style.backgroundColor = g.toRGBA();
+			
+			var end = new Date().getTime();
+			
+			sum7 += (end - init)/1000;
+		}
+
+		console.log("Color { r: 12, g: 57, b: 189 }");
+		console.log("Total time: " + sum7);
+
+		var sum8 = 0;
+
+		for (var i = 0; i < totalLoop; i++) {
+			var init = new Date().getTime();
 		
-		console.log("Elapsed time: " + total + "s");
+			var g = new Color({ r: 12, g: 57, b: 189 });
+			/*console.log(g.toHexadecimal());
+			console.log(g.toArray());
+			console.log(g.toRGBA());
+			console.log(g.toRGB());
+			console.log(g.toJson());*/
+			
+			var dom1 = document.getElementById("test");
+			dom1.style.backgroundColor = g.toRGBA();
+			
+			g.changeOpacity(0.57);
+			
+			/*console.log(g.toHexadecimal());
+			console.log(g.toArray());
+			console.log(g.toRGBA());
+			console.log(g.toRGB());
+			console.log(g.toJson());*/
+			
+			var dom2 = document.getElementById("test2");
+			dom2.style.backgroundColor = g.toRGBA();
+			
+			var end = new Date().getTime();
+			
+			sum8 += (end - init)/1000;
+		}
+
+		console.log("Color { r: 12, g: 57, b: 189, a: 0.38 }");
+		console.log("Total time: " + sum8);
 		
 		</script>
 	</body>
