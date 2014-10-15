@@ -16,11 +16,11 @@
 		var RGBA = [];
 
 		// Random Color
-		if (arguments.length == 0) {
+		if (arguments.length === 0) {
 			RGBA = [Math.random() * 256, Math.random() * 256, Math.random() * 256, 1].map(function (x) {
-				return Math.round(x/2.0);
+				return Math.round(x);
 			});
-		} else if (arguments.length == 3) {
+		} else if (arguments.length === 3) {
 			// Red, Green, Blue
 			var red = arguments[0];
 			var green = arguments[1];
@@ -31,7 +31,7 @@
 			} else {
 				throw 'Invalid input type';
 			}
-		} else if (arguments.length == 4) {
+		} else if (arguments.length === 4) {
 			// Red, Green, Blue, Opacity
 			var red = arguments[0];
 			var green = arguments[1];
@@ -44,9 +44,8 @@
 			} else {
 				throw 'Invalid input type';
 			}
-		} else if (arguments.length == 1) {
+		} else if (arguments.length === 1) {
 			var argument = arguments[0];
-
 			var argumentType = Object.prototype.toString.call(argument);
 
 			switch (argumentType) {
@@ -74,18 +73,59 @@
 		}
 
 		// Public methods
-		Color.prototype.toArray = function () {
-			// Format [red, green, blue, alpha]
-			return RGBA;
+		Color.prototype.toArray = function (/* withAlpha */) {
+			if (arguments.length === 0) {
+				// Format [red, green, blue, alpha]
+				return RGBA;
+			} else if (arguments.length === 1) {
+				var withAlpha = arguments[0];
+
+				if (withAlpha !== undefined) {
+					if (withAlpha) {
+						return RGBA;
+					} else {
+						return [RGBA[0], RGBA[1], RGBA[2]];
+					}
+				} else {
+					throw 'Invalid parameter value';
+				}
+			} else {
+				throw 'Invalid parameters';
+			}
 		};
 
-		Color.prototype.toJson = function () {
-			return {
-				r: RGBA[0]
-				, g: RGBA[1]
-				, b: RGBA[2]
-				, a: RGBA[3]
-			};
+		Color.prototype.toJson = function (/* withAlpha */) {
+			if (arguments.length === 0) {
+				return {
+					r: RGBA[0]
+					, g: RGBA[1]
+					, b: RGBA[2]
+					, a: RGBA[3]
+				};
+			} else if (arguments.length === 1) {
+				var withAlpha = arguments[0];
+
+				if (withAlpha !== undefined) {
+					if (withAlpha) {
+						return {
+							r: RGBA[0]
+							, g: RGBA[1]
+							, b: RGBA[2]
+							, a: RGBA[3]
+						};
+					} else {
+						return {
+							r: RGBA[0]
+							, g: RGBA[1]
+							, b: RGBA[2]
+						};
+					}
+				} else {
+					throw 'Invalid parameter value';
+				}
+			} else {
+				throw 'Invalid parameters';
+			}
 		};
 
 		Color.prototype.toRGBA = function () {
