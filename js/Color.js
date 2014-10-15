@@ -12,6 +12,43 @@
 		    return result ? [parseInt(result[1], 16), parseInt(result[2], 16), parseInt(result[3], 16), 1] : undefined;
 		};
 
+		Color.hexadecimalToRGB2 = function (hexadecimalColor) {
+			// Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
+			var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+			hexadecimalColor = hexadecimalColor.replace(shorthandRegex, function (m, r, g, b) {
+		        return r + r + g + g + b + b;
+		    });
+
+			var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.test(hexadecimalColor);
+			if (result) {
+				var hexadecimal = hexadecimalColor.replace('#', '');
+
+				var bigint = parseInt(hexadecimal, 16);
+				var r = (bigint >> 16) & 255;
+				var g = (bigint >> 8) & 255;
+				var b = bigint & 255;
+
+				return [r, g, b, 1];
+			} else {
+				return undefined;
+			}
+
+			//var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hexadecimalColor);
+
+			/*if (result) {
+				var hexadecimal = result[0].replace('#', '');
+
+				var bigint = parseInt(hexadecimal, 16);
+				var r = (bigint >> 16) & 255;
+				var g = (bigint >> 8) & 255;
+				var b = bigint & 255;
+
+				return [r, g, b, 1];
+			} else {
+				return undefined;
+			}*/
+		};
+
 		// Private attribute
 		var RGBA = [];
 
