@@ -1,5 +1,5 @@
 (function (window, undefined) {
-	var Color = function (/* red, green, blue | red, green, blue, opacity | rgbArray | hexString | colorJson */) {
+	var Color = function (/* red, green, blue | red, green, blue, opacity | rgbaArray | hexString | colorJson */) {
 		// Static method (via http://stackoverflow.com/a/5624139)
 		Color.hexadecimalToRGB = function (hexadecimalColor) {
 			// Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
@@ -50,7 +50,7 @@
 
 			switch (argumentType) {
 				case "[object Array]":
-					// rgbArray
+					// rgbaArray
 					arrayConstructor(argument);
 					break;
 
@@ -145,48 +145,6 @@
 			RGBA[3] = checkedOpacity;
 		};
 
-		/*Color.prototype.applyBrightness = function (brightnessToApply) {
-			if (brightnessToApply !== undefined) {
-				var brightnessMatrix = [];
-				var validValue = false;
-
-				if (isInteger(brightnessToApply)) {
-					validValue = true;
-				} else if (Object.prototype.toString.call(brightnessToApply) == '[object String]') {
-					var tempTransform = brightnessToApply << 0;
-					if (tempTransform == brightnessToApply) {
-						brightnessToApply = tempTransform;
-						if (isInteger(brightnessToApply)) {
-							validValue = true;
-						} else {
-							throw 'Invalid brightness value';
-						}
-					} else {
-						throw 'Invalid brightness value';
-					}
-				} else {
-					throw 'Invalid input type';
-				}
-
-				if (validValue) {
-					// brightnessToApply --> 0 to 5
-					if (brightnessToApply >= 0 && brightnessToApply <= 5) {
-						brightnessMatrix = [brightnessToApply * 51, brightnessToApply * 51, brightnessToApply * 51];
-
-						RGBA = [RGBA[0] + brightnessMatrix[0], RGBA[1] + brightnessMatrix[1], RGBA[2] + brightnessMatrix[2], RGBA[3]];
-
-						RGBA = [RGBA[0] + brightnessMatrix[0], RGBA[1] + brightnessMatrix[1], RGBA[2] + brightnessMatrix[2], RGBA[3]].map(function (x) {
-					    	return Math.round(x/2.0);
-						});
-					} else {
-						throw 'Invalid brightness value (0 to 5)';
-					}
-				}
-			} else {
-				throw 'Brightness required';
-			}
-		};*/
-
 		// Private method's
 		function isInteger (numberToCheck) {
 			return (typeof numberToCheck === 'number' && isFinite(numberToCheck) && Math.floor(numberToCheck) === numberToCheck);
@@ -249,6 +207,7 @@
 					RGBA = [red, green, blue];
 
 					var opacity = argument[3];
+					// Opacity optional
 					if (opacity !== undefined) {
 						var checkedOpacity = checkOpacityValue(opacity);
 						RGBA[3] = checkedOpacity;
