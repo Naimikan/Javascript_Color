@@ -51,9 +51,11 @@
 
 		// Private attribute
 		var RGBA = [];
+		var ColorInstance = this;
 
-		// Random Color
+		// Constructors
 		if (arguments.length === 0) {
+			// Random Color
 			RGBA = [Math.random() * 256, Math.random() * 256, Math.random() * 256, 1].map(function (x) {
 				return Math.round(x);
 			});
@@ -180,6 +182,9 @@
 		Color.prototype.changeOpacity = function (newOpacity) {
 			var checkedOpacity = checkOpacityValue(newOpacity);
 			RGBA[3] = checkedOpacity;
+
+			// Return color instance
+			return ColorInstance;
 		};
 
 		// Private method's
